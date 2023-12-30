@@ -1,0 +1,17 @@
+syntax = "proto3";
+package marvin;
+
+// option go_package = "github.com/protocolbuffers/protobuf/examples/go/tutorialpb";
+option go_package = "./pb";
+
+enum MessageType {
+    FROM_USER = 0;
+    FROM_ASSISTANT = 1;
+  }
+
+message Message {
+    MessageType type = 1;
+    string message = 2;
+    int64 from_user_id = 3;
+    string from_username = 4;
+  }
