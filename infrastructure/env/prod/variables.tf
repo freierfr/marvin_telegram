@@ -30,4 +30,8 @@ variable "REDIS_PASSWORD" {
   sensitive = true
 }
 
+variable "CLOUDFLARE_API_TOKEN" {
+  type = string
+  sensitive = true
+}
 

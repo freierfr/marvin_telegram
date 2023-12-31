@@ -135,20 +135,18 @@ resource "azurerm_app_service_certificate_binding" "marvin_managed_certificate_b
   ssl_state           = "SniEnabled"
 }
 
-resource "azurerm_dns_txt_record" "marvin_dns_txt" {
-  name                = "asuid.marvin-${var.env}"
-  zone_name           = data.azurerm_dns_zone.stumpy_fr.name
-  resource_group_name = data.azurerm_resource_group.global.name
-  ttl                 = 300
-  record {
-    value = azurerm_linux_function_app.marvin_function_app.custom_domain_verification_id
-  }
+resource "cloudflare_record" "marvin_dns_txt" {
+  zone_id = data.cloudflare_zone.stumpy_fr.id
+  name    = "asuid.marvin-${var.env}"
+  value   = azurerm_linux_function_app.marvin_function_app.custom_domain_verification_id
+  type    = "TXT"
+  ttl     = 300
 }
 
-resource "azurerm_dns_cname_record" "marvin_cname" {
-  name                = "marvin-${var.env}"
-  zone_name           = data.azurerm_dns_zone.stumpy_fr.name
-  resource_group_name = data.azurerm_resource_group.global.name
-  ttl                 = 300
-  record              = azurerm_linux_function_app.marvin_function_app.default_hostname
+resource "cloudflare_record" "marvin_cname" {
+  zone_id = data.cloudflare_zone.stumpy_fr.id
+  name    = "marvin-${var.env}"
+  value   = azurerm_linux_function_app.marvin_function_app.default_hostname
+  type    = "CNAME"
+  proxied = true
 }

@@ -1,3 +1,16 @@
+terraform {
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.21"
+      source  = "cloudflare/cloudflare"
+    }
+  }
+  required_version = ">= 1.1.0"
+}
+
+
+
 data "terraform_remote_state" "google_workspace" {
   backend = "azurerm"
 

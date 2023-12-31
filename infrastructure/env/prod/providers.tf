@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.85.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.21"
+    }
   }
 
   backend "azurerm" {
@@ -36,3 +40,8 @@ data "terraform_remote_state" "google_workspace" {
     key                  = "terraform_google_workspace.tfstate"
   }
 }
+
+provider "cloudflare" {
+  api_token = var.CLOUDFLARE_API_TOKEN
+}
+
